@@ -1,5 +1,6 @@
 package com.example.kolin.customview;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -8,6 +9,8 @@ import android.graphics.RectF;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+import android.webkit.ValueCallback;
 
 /**
  * Created by kolin on 04.01.2017.
@@ -29,6 +32,8 @@ public class CircleProgressView extends View {
 
     private Paint paint;
 
+    private ValueAnimator currentAmountAnimator;
+
 
     public CircleProgressView(Context context) {
         super(context);
@@ -41,7 +46,7 @@ public class CircleProgressView extends View {
 
     private void init(Context context, AttributeSet attrs) {
 
-        if (attrs != null){
+        if (attrs != null) {
             final TypedArray typedArray =
                     context.obtainStyledAttributes(attrs, R.styleable.CircleProgressView, 0, 0);
 
@@ -127,7 +132,34 @@ public class CircleProgressView extends View {
     }
 
     public void setCurrentAmount(float currentAmount) {
-        this.currentAmount = currentAmount;
-        invalidate();
+        setAnimator(currentAmount, true);
     }
+
+    private void setAnimator(final float currentAmount, boolean animate) {
+        if (animate) {
+            currentAmountAnimator = ValueAnimator.ofFloat(0, 1);
+            currentAmountAnimator.setDuration(700);
+
+            setAnimator(0, false);
+
+            currentAmountAnimator.setInterpolator(new DecelerateInterpolator());
+
+            currentAmountAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    float inter = (float) animation.getAnimatedValue();
+                    setAnimator(inter * currentAmount, false);
+                }
+            });
+
+            if (!currentAmountAnimator.isStarted()) {
+                currentAmountAnimator.start();
+            }
+        } else {
+            this.currentAmount = currentAmount;
+            postInvalidate();
+        }
+    }
+
+
 }

@@ -18,11 +18,19 @@
         android:paddingEnd="5dp"
         app:colorDefault="@color/colorGrey"
         app:colorProgress="@color/colorAccent"
-        app:targetAmount="375"
-        app:currentAmount="62"
+        app:targetAmount="100"
+        app:currentAmount="25"
         app:lineWidth="5dp"
         android:id="@+id/circleProgressView"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/circleProgressView"
+        android:layout_marginTop="34dp"
+        android:text="@string/app_name"
+        android:id="@+id/button" />
 
 </RelativeLayout>
