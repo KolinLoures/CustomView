@@ -90,7 +90,7 @@ public class CircleProgressView extends View {
         final int height = getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec);
         final int min = Math.min(width, height);
 
-        int arcDiameter = min - getPaddingStart() - getPaddingEnd();
+        int arcDiameter = min - getPaddingStart();
         float top = height / 2 - (arcDiameter / 2);
         float left = width / 2 - (arcDiameter / 2);
 
@@ -105,7 +105,7 @@ public class CircleProgressView extends View {
         paint.setColor(colorDefault);
         canvas.drawArc(rectF, ANGEL_OFFSET, 360, false, paint);
 
-        int progress = (int) ((360 * currentAmount) / targetAmount);
+        float progress = (360 * currentAmount) / targetAmount;
 
         paint.setColor(colorProgress);
         canvas.drawArc(rectF, ANGEL_OFFSET, progress, false, paint);
@@ -138,7 +138,7 @@ public class CircleProgressView extends View {
     private void setAnimator(final float currentAmount, boolean animate) {
         if (animate) {
             currentAmountAnimator = ValueAnimator.ofFloat(0, 1);
-            currentAmountAnimator.setDuration(700);
+            currentAmountAnimator.setDuration(1000);
 
             setAnimator(0, false);
 
