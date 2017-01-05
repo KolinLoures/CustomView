@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleProgressView">
+
+        <attr name="lineWidth" format="dimension"/>
+
+        <attr name="colorProgress" format="color"/>
+        <attr name="colorDefault" format="color"/>
+
+        <attr name="targetAmount" format="float"/>
+        <attr name="currentAmount" format="float"/>
+
+    </declare-styleable>
+    
+</resources>
