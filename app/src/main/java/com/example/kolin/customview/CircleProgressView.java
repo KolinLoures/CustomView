@@ -256,7 +256,6 @@ public class CircleProgressView extends View {
     @Override
     protected Parcelable onSaveInstanceState() {
         Bundle bundle = new Bundle();
-
         bundle.putInt("progress", currentProgress);
         bundle.putParcelable("state", super.onSaveInstanceState());
         return bundle;
@@ -264,7 +263,7 @@ public class CircleProgressView extends View {
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
-        if (state != null && state instanceof Bundle){
+        if (state != null && state instanceof Bundle) {
             Bundle bundle = (Bundle) state;
             setCurrentProgress(bundle.getInt("progress"));
             state = bundle.getParcelable("state");
