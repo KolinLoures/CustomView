@@ -8,6 +8,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
@@ -101,12 +103,11 @@ public class CircleProgressView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         final int width = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
         final int height = getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec);
 
-        if ((width / getDensity()) < 100 || (height / getDensity()) < 100){
+        if ((width / getDensity()) < 100 || (height / getDensity()) < 100) {
             throw new IllegalArgumentException("Width or Height must be more than 100dp");
         }
 
@@ -114,12 +115,12 @@ public class CircleProgressView extends View {
         final int min = Math.min(width, height);
 
         int arcDiameter = min - getPaddingStart() - getPaddingEnd();
-        float top = min / 2 - (arcDiameter / 2);
-        float left = min / 2 - (arcDiameter / 2);
+        float top = height / 2 - (arcDiameter / 2);
+        float left = width / 2 - (arcDiameter / 2);
 
         arcRectF.set(left, top, left + arcDiameter, top + arcDiameter);
 
-        setMeasuredDimension(width, height);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
 
@@ -131,7 +132,7 @@ public class CircleProgressView extends View {
                 text.length(),
                 textRect);
 
-        int xPos = canvas.getWidth() / 2 - textRect.width() / 2;
+        int xPos = (int) arcRectF.centerX() - textRect.width() / 2;
         int yPos = (int) (arcRectF.centerY() - (paintText.descent() + paintText.ascent()) / 2);
 
         int progress = (360 * currentProgress) / goalProgress;
@@ -145,7 +146,7 @@ public class CircleProgressView extends View {
         return progressWidth;
     }
 
-    private float getDensity(){
+    private float getDensity() {
         return getResources().getDisplayMetrics().density;
     }
 
@@ -250,5 +251,24 @@ public class CircleProgressView extends View {
             this.currentProgress = currentProgress;
             postInvalidate();
         }
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Bundle bundle = new Bundle();
+
+        bundle.putInt("progress", currentProgress);
+        bundle.putParcelable("state", super.onSaveInstanceState());
+        return bundle;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (state != null && state instanceof Bundle){
+            Bundle bundle = (Bundle) state;
+            setCurrentProgress(bundle.getInt("progress"));
+            state = bundle.getParcelable("state");
+        }
+        super.onRestoreInstanceState(state);
     }
 }
