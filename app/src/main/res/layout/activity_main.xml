@@ -23,7 +23,7 @@
         android:paddingStart="10dp"
         app:arcColor="@color/colorGrey"
         app:arcWidth="2dp"
-        app:currentProgress="253"
+        app:currentProgress="0"
         app:goalProgress="360"
         app:progressColor="@color/colorAccent"
         app:progressWidth="7dp"
