@@ -2,13 +2,15 @@
 <resources>
     <declare-styleable name="CircleProgressView">
 
-        <attr name="lineWidth" format="dimension"/>
+        <attr name="progressWidth" format="dimension"/>
+        <attr name="arcWidth" format="dimension"/>
+        <attr name="textSize" format="dimension" />
 
-        <attr name="colorProgress" format="color"/>
-        <attr name="colorDefault" format="color"/>
+        <attr name="progressColor" format="color"/>
+        <attr name="arcColor" format="color"/>
 
-        <attr name="targetAmount" format="float"/>
-        <attr name="currentAmount" format="float"/>
+        <attr name="goalProgress" format="float"/>
+        <attr name="currentProgress" format="float"/>
 
     </declare-styleable>
     
