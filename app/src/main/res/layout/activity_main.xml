@@ -23,9 +23,9 @@
         android:paddingStart="10dp"
         app:arcColor="@color/colorGrey"
         app:arcWidth="2dp"
-        app:currentProgress="0"
+        app:currentProgress="180"
         app:goalProgress="360"
-        app:progressColor="@color/colorAccent"
+        app:progressColor="@color/colorCyan"
         app:progressWidth="7dp"
         app:textSize="29sp" />
 

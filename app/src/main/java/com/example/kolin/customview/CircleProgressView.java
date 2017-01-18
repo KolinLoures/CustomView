@@ -56,6 +56,8 @@ public class CircleProgressView extends View {
     }
 
 
+
+
     private void init(Context context, AttributeSet attrs) {
 
         float density = getDensity();
